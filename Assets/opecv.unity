@@ -592,7 +592,7 @@ MonoBehaviour:
       m_SingletonActionBindings:
       - m_Name: 
         m_Id: 314fbfb7-9b9f-4d66-868f-379058ba0f99
-        m_Path: <XRHMD>/centerEyePosition
+        m_Path: <XRHMD>/centerEyeRotation
         m_Interactions: 
         m_Processors: 
         m_Groups: 
@@ -600,7 +600,7 @@ MonoBehaviour:
         m_Flags: 0
       - m_Name: 
         m_Id: 14c0ad8c-5597-4011-9331-f60d0c9afa5a
-        m_Path: <HandheldARInputDevice>/devicePosition
+        m_Path: <HandheldARInputDevice>/deviceRotation
         m_Interactions: 
         m_Processors: 
         m_Groups: 
