@@ -68,13 +68,8 @@ public class CameraPositionSaver : Singleton<CameraPositionSaver>
     {
         while (true)
         {
-            //yield return new WaitForSeconds(.5f);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(3f);
             FrameCameraSave();
-            //SavedCameraData.Add(new ScanData() { Id = _currentId, Position = transform.position, Rotation = transform.rotation });
-            //TextureGetter.Instance.GetImageAsync(_currentId);
-
-            //++_currentId;
         }
     }
 
