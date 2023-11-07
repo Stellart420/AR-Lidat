@@ -18,6 +18,7 @@ public class TestScAN : MonoBehaviour
 
     private void Start()
     {
+        Reporter.Instance.doShow();
         _camera = Camera.main;
         _arMeshManager.enabled = false;
         _arMeshManager.density = 1f;
