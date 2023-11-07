@@ -91,6 +91,11 @@ public class TestScAN : MonoBehaviour
                     Debug.Log("Raycast hit a mesh: " + meshCol.name);
                     //Получаем текстуру кадра
                     var tex =  CameraPositionSaver.Instance.FrameTexture;
+                    if (tex == null)
+                    {
+                        Debug.Log("Кадра еще нет!");
+                        return;
+                    }
                     //Тут нужно делать твои действия с OpenCV
 
                     Mat imgMat = new Mat(tex.height, tex.width, CvType.CV_8UC4);
