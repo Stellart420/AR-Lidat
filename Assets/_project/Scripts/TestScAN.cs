@@ -21,6 +21,8 @@ public class TestScAN : MonoBehaviour
         _camera = Camera.main;
         _arMeshManager.enabled = false;
         _arMeshManager.density = 1f;
+        CameraPositionSaver.Instance.StartSavingOneFrame();
+        ScanStart();
     }
 
     public void ScanStart()
@@ -88,7 +90,7 @@ public class TestScAN : MonoBehaviour
                     // Возвращен меш, в которыq попал луч.
                     Debug.Log("Raycast hit a mesh: " + meshCol.name);
                     //Получаем текстуру кадра
-                    var tex =  GetAndProcessImageAsync();
+                    var tex =  CameraPositionSaver.Instance.FrameTexture;
                     //Тут нужно делать твои действия с OpenCV
 
                     Mat imgMat = new Mat(tex.height, tex.width, CvType.CV_8UC4);
