@@ -34,7 +34,7 @@ public class CameraPositionSaver : Singleton<CameraPositionSaver>
 
     public void StartSavingOneFrame()
     {
-        Debug.Log("StartSaving");
+        Debug.Log("StartSavingOneFrame");
         _savingProcesss = StartCoroutine(SaveProcess());
         //_getCameraTextureProcess = StartCoroutine(SaveTextureProcess());
     }
