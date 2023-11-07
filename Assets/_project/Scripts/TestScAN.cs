@@ -11,6 +11,7 @@ public class TestScAN : MonoBehaviour
 {
     [SerializeField] private ARMeshManager _arMeshManager;
     [SerializeField] private ARCameraManager _cameraManager;
+    [SerializeField] private Material _nonWireframeMaterial;
 
     private Camera _camera;
     private int _textureDevider = 1;
@@ -105,20 +106,25 @@ public class TestScAN : MonoBehaviour
                     Paint(imgMat, GetPoint(), new Size(tex.width, tex.height), new Scalar(255, 0, 0, 255));
 
                     // Создаем новый материал.
+                    var render = meshCol.GetComponent<MeshRenderer>();
+                    render.material = _nonWireframeMaterial;
+                    render.material.color = Color.white;
                     Material newMaterial = new Material(Shader.Find("Standard"));
                     newMaterial.color = Color.white;
                     if (opencvprocessed != null)
                     {
-                        newMaterial.SetTexture("_BaseMap", opencvprocessed);
+                        //newMaterial.SetTexture("_BaseMap", opencvprocessed);
+                        render.material.SetTexture("_BaseMap", opencvprocessed);
+                        Debug.Log("OpenCV texture");
                     }
                     else
                     {
-                        newMaterial.SetTexture("_BaseMap", tex);
+                        //newMaterial.SetTexture("_BaseMap", tex);
+                        render.material.SetTexture("_BaseMap", tex);
+                        Debug.Log("Frame texture");
                     }
-                    var mf = meshCol.GetComponent<MeshFilter>();
                     ///GenerateSimpleUV(tex, ref mf);
-                    var render = mf.GetComponent<MeshRenderer>();
-                    render.material = newMaterial;
+                    //render.material = newMaterial;
 
 
                     _arMeshManager.enabled = false; // Отключаем ARMeshManager

@@ -1283,6 +1283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arMeshManager: {fileID: 1420145518}
   _cameraManager: {fileID: 929782452}
+  _nonWireframeMaterial: {fileID: 2100000, guid: 9d286784c905d0446b5b12508f90eabe,
+    type: 2}
   opencvprocessed: {fileID: 2800000, guid: 283f897e4925411ebbaa758b4cb13fc2, type: 3}
 --- !u!1 &1507496838
 GameObject:
