@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.ImgprocModule;
-public class TestScAN : MonoBehaviour
+public class TestScan : MonoBehaviour
 {
     [SerializeField] private ARMeshManager _arMeshManager;
     [SerializeField] private ARCameraManager _cameraManager;
@@ -76,7 +76,7 @@ public class TestScAN : MonoBehaviour
         }
         return point;
     }
-    private async void Update()
+    private void Update()
     {
         if (Input.touchCount > 0) // Проверяем, есть ли касания на экране.
         {
@@ -98,6 +98,10 @@ public class TestScAN : MonoBehaviour
                         Debug.Log("Кадра еще нет!");
                         return;
                     }
+                    else
+                    {
+                        Debug.Log("Кадр есть");
+                    }
                     //Тут нужно делать твои действия с OpenCV
 
                     Mat imgMat = new Mat(tex.height, tex.width, CvType.CV_8UC4);
@@ -106,30 +110,30 @@ public class TestScAN : MonoBehaviour
                     Paint(imgMat, GetPoint(), new Size(tex.width, tex.height), new Scalar(255, 0, 0, 255));
 
                     // Создаем новый материал.
-                    var render = meshCol.GetComponent<MeshRenderer>();
-                    render.material = _nonWireframeMaterial;
-                    render.material.color = Color.white;
-                    Material newMaterial = new Material(Shader.Find("Standard"));
-                    newMaterial.color = Color.white;
+                    var meshRenderer = meshCol.GetComponent<MeshRenderer>();
+                    meshRenderer.material = _nonWireframeMaterial;
+                    meshRenderer.material.color = Color.white;
+                    var meshFilter = meshRenderer.GetComponent<MeshFilter>();
+                    Texture2D texture;
                     if (opencvprocessed != null)
                     {
-                        //newMaterial.SetTexture("_BaseMap", opencvprocessed);
-                        render.material.SetTexture("_BaseMap", opencvprocessed);
                         Debug.Log("OpenCV texture");
+                        texture = opencvprocessed;
+                        //newMaterial.SetTexture("_BaseMap", opencvprocessed);
                     }
                     else
                     {
-                        //newMaterial.SetTexture("_BaseMap", tex);
-                        render.material.SetTexture("_BaseMap", tex);
                         Debug.Log("Frame texture");
+                        texture = tex;
                     }
-                    ///GenerateSimpleUV(tex, ref mf);
-                    //render.material = newMaterial;
 
+                    meshFilter.GenerateUV(_camera, texture, Vector2.zero);
+                    meshRenderer.material.SetTexture("_BaseMap", texture);
 
-                    _arMeshManager.enabled = false; // Отключаем ARMeshManager
+                    // Отключаем ARMeshManager
+                    _arMeshManager.enabled = false; 
 
-                    XRMeshSubsystem arMeshSubsystem = (XRMeshSubsystem)_arMeshManager.subsystem;
+                    XRMeshSubsystem arMeshSubsystem = _arMeshManager.subsystem;
 
                     if (arMeshSubsystem != null)
                     {
